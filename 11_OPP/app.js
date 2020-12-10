@@ -78,18 +78,18 @@
 
 // constructor pattern
 
-var Reactangle = function (width, height) {
-  this.width = width;
-  this.height = height;
-  (this.draw = function () {
-    console.log('this is rectangle');
-    this.print();
-  }),
-    (this.print = function () {
-      console.log('this is width :' + this.width);
-      console.log('this is height : ' + this.height);
-    });
-};
+// var Reactangle = function (width, height) {
+//   this.width = width;
+//   this.height = height;
+//   (this.draw = function () {
+//     console.log('this is rectangle');
+//     this.print();
+//   }),
+//     (this.print = function () {
+//       console.log('this is width :' + this.width);
+//       console.log('this is height : ' + this.height);
+//     });
+// };
 
 // var rect1 = new Reactangle(12, 34);
 // rect1.draw();
@@ -100,16 +100,48 @@ var Reactangle = function (width, height) {
 // var rect3 = new Reactangle(34, 90);
 // rect3.draw();
 
-// new keyword
+// // new keyword
 
-function myNew(constructor) {
-  var obj = {};
-  Object.setPrototypeOf(obj, constructor);
-  var argsArray = Array.prototype.slice.apply(arguments);
-  constructor.apply(obj, argsArray.slice(1));
+// function myNew(constructor) {
+//   var obj = {};
+//   Object.setPrototypeOf(obj, constructor);
+//   var argsArray = Array.prototype.slice.apply(arguments);
+//   constructor.apply(obj, argsArray.slice(1));
 
-  return obj;
+//   return obj;
+// }
+
+// var rect4 = myNew(Reactangle, 45, 67);
+// rect4.draw();
+
+// constructor poverty
+
+// var str = new String('this is a strings');
+// console.log('My strings is : ' + str);
+
+function test() {
+  console.log('something');
 }
 
-var rect4 = myNew(Reactangle, 45, 67);
-rect4.draw();
+test();
+console.log(test.name);
+console.log(test.length);
+
+var Rect = Function(
+  'width',
+  'height',
+  `  this.width = width;
+  this.height = height;
+  (this.draw = function () {
+    console.log('this is rectangle');
+    this.print();
+  }),
+    (this.print = function () {
+      console.log('this is width :' + this.width);
+      console.log('this is height : ' + this.height);
+    });`
+);
+
+var rect5 = new Rect(12, 4);
+rect5.draw();
+console.log(typeof rect5);
